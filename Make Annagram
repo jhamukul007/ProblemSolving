@@ -1,0 +1,120 @@
+package com.hakerrank.question;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class MakeAnnagram {
+
+	
+	public static int chageToMakeAnnagram(String s1,String s2)
+	{
+		if(s1==null && s2==null)
+		{
+			return 0;
+		}
+		long time=System.currentTimeMillis();
+		List<Integer> foundDataIndex=new ArrayList<>();
+		boolean flag=false;
+		int count=0;
+		for(int i=0;i<s1.length();i++)
+		{
+			for(int j=0;j<s2.length();j++)
+			{
+				if(s1.charAt(i)==s2.charAt(j))
+				{
+					if(!foundDataIndex.contains(j))
+					{
+						foundDataIndex.add(j);
+						flag=true;
+						break;
+					}
+				}
+				flag=false;
+			}
+			if(flag==false)
+			{
+				count++;
+			}
+		}
+		System.out.println("Total time taken to Execute: "+(System.currentTimeMillis()-time));
+		return count+(s2.length()-foundDataIndex.size());
+	}
+	
+	public static int removeToAna(String s1,String s2)
+	{
+		long time=System.currentTimeMillis();
+		Map<Character,Integer> map1=new HashMap<>();
+		Map<Character,Integer> map2=new HashMap<>();
+		char[] arr1=s1.toCharArray();
+		char[] arr2=s2.toCharArray();
+		for(Character c:arr1)
+		{
+			if(map1.containsKey(c))
+			{
+				map1.put(c,map1.get(c)+1);
+			}
+			else
+			{
+				map1.put(c, 1);
+			}
+		}
+		for(Character c:arr2)
+		{
+			if(map2.containsKey(c))
+			{
+				map2.put(c,map2.get(c)+1);
+			}
+			else
+			{
+				map2.put(c, 1);
+			}
+		}
+		int count=0;
+		List<Character> foundList=new ArrayList<>();
+		for(Map.Entry<Character, Integer> entry1:map1.entrySet())
+		{
+			char c=entry1.getKey();
+			if(map2.containsKey(c))
+			{
+				int d1=entry1.getValue();
+				
+				int d2=map2.get(c);
+				
+				foundList.add(c);
+				count=count+(d1>d2?(d1-d2):(d2-d1));
+			}
+			else
+			{
+			
+			count=count+map1.get(c);
+			}
+			
+		}
+		System.out.println("Count : " +count);
+		Set<Character> key=map2.keySet();
+		for(char c:key)
+		{
+			if(!foundList.contains(c))
+				{
+					count=count+map2.get(c);
+				}
+		}
+		/*System.out.println(foundList);
+		System.out.println(map1);
+		System.out.println(map2);
+		*/
+		System.out.println("Total time taken to Execute to execute using map: "+(System.currentTimeMillis()-time));
+		return count;
+	}
+	public static void main(String[] args) {
+		String s1="AABCDAFHK";
+		String s2="CGADFLALK";
+
+		
+		System.out.println(chageToMakeAnnagram(s1, s2));
+		
+	}
+}
