@@ -1,0 +1,53 @@
+package com.design.linklist;
+
+public class SwapPairWiseNode {
+
+	static Node head;
+	public static Node swap(Node head)
+	{
+		if(head==null||head.next==null)
+		{
+			return head;
+		}
+		Node pre=head;
+		Node cur=head.next;
+		head=cur;
+		
+		while(true)
+		{
+			Node temp=cur.next;
+			cur.next=pre;
+			if(temp==null ||temp.next==null)
+			{
+				pre.next=temp;
+				break;
+			}
+			pre.next=temp.next;
+			pre=temp;
+			cur=pre.next;
+		}
+		return head;
+	}
+	public static void print(Node head){
+		if(head==null) {
+			return;
+		}
+		while(head!=null){
+			System.out.print(head.data+" ->");
+			head=head.next;
+		}
+	}
+	public static void main(String[] args) {
+		head=new Node(1);
+		head.next=new Node(2);
+		head.next.next=new Node(3);
+		head.next.next.next=new Node(4);
+		head.next.next.next.next=new Node(5);
+		head.next.next.next.next.next=new Node(6);
+		head.next.next.next.next.next.next=new Node(7);
+		print(head);
+		System.out.println("------------------------------------");
+		Node n=swap(head);
+		print(n);
+	}
+}
