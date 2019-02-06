@@ -1,0 +1,55 @@
+package com.design.array;
+
+public class LongestEvenSubArray {
+
+	public static int longestLengthSubArray(int[] arr) {
+		if(arr==null) {
+			return -1;
+		}
+		int maxLen=-1;
+		int len=0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]%2==0) {
+				len++;
+			}
+			else
+			{
+				maxLen=len>maxLen?len:maxLen;
+				len=0;
+			}
+		}
+		maxLen=len>maxLen?len:maxLen;
+		return maxLen;
+	}
+	
+	public static int longestSubarrayWithOdd(int[] arr) {
+		if(arr==null) {
+			return -1;
+		}
+		int maxLen=-1;
+		int len=0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]%2!=0) {
+				len++;
+			}
+			else {
+				maxLen=len>maxLen?len:maxLen;
+				len=0;
+			}
+		}
+		maxLen=len>maxLen?len:maxLen;
+		return maxLen;
+	}
+	
+	public static void main(String[] args) {
+		int[] arr= {1,2,3,4,5,6,8,10,12};
+		int[] arr1= {9, 8, 5, 4, 4, 4, 2, 4, 1};
+		int len=longestLengthSubArray(arr1);
+		System.out.println("Longest Even SubSequence Array: "+len);
+		int oddLne=longestSubarrayWithOdd(arr1);
+		System.out.println("Longest Odd Sub sequence Array: "+oddLne);
+		
+		
+
+	}
+}
