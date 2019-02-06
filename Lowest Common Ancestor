@@ -1,0 +1,69 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LowestCommonAssister 
+{
+	//using Recursion
+	Node root;
+	public LowestCommonAssister() {
+		root=null;
+	}
+	
+	public Node lca(Node root, Node n1,Node n2)
+	{
+		if(root==null)
+		{
+			return null;
+		}
+		if(n1==root || n2==root)
+		{
+			return root;
+		}
+		Node left=lca(root.left,n1,n2);
+		Node right=lca(root.right,n1,n2);
+		if(left==null && right==null)
+		{
+			return null;
+		}
+		if(left!=null && right!=null)
+		{
+			return root;
+		}
+		else return (left!=null)?left:right;
+	}
+	
+	// using traversal
+	
+	public int leftNode(Node root,int n1,int n2)
+	{
+		if(root==null)
+		{
+			return Integer.MIN_VALUE;
+		}
+		List<Integer> first=new ArrayList<>();
+		List<Integer> second=new ArrayList<>();
+		first.add(root.data);
+		while(root.left!=null)
+		{
+			first.add(root.left.data);
+			root=root.left;
+		}
+		
+		return 0;
+	}
+	public static void main(String[] args) {
+		LowestCommonAssister obj=new LowestCommonAssister();
+		obj.root=new Node(1);
+		obj.root.left=new Node(2);
+		obj.root.right=new Node(3);
+		obj.root.left.left=new Node(4);
+		obj.root.left.right=new Node(5);
+		obj.root.left.right.right=new Node(6);
+		obj.root.right.right=new Node(7);
+		obj.root.right.right.left=new Node(8);
+		Node lca=obj.lca(obj.root,obj.root.right,obj.root.right.right.left);
+		System.out.println(lca.data);
+		//System.out.println(obj.leftNode(obj.root));
+	}
+}
