@@ -1,0 +1,45 @@
+
+public class ZigZagForm {
+
+	public static void print(int[][] matrix) {
+		if(matrix==null) {
+			return;
+		}
+		int rowLen=matrix.length;
+		int colLen=matrix[0].length;
+		//int i=0;
+		int j=0;
+	
+	for(int i=0;i<rowLen;i++) {
+		
+		if(i%2==0) {
+			while(j<colLen) {
+				System.out.print(matrix[i][j]+" ");
+				//System.out.println(j);
+				if(j==colLen-1) {
+					break;
+				}
+				j++;
+				
+			}
+		}
+		else
+		{
+			while(j>=0) {
+				System.out.print(matrix[i][j]+" ");
+			if(j==0) {
+				
+				break;
+			}
+				j--;
+			}
+		}
+	}
+	
+	}
+	public static void main(String[] args) {
+		int[][] matrix= {{1,2,34,50},{15,8,5,6},{16,4,6,9}};
+		print(matrix);
+		
+	}
+}
