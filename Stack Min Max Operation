@@ -1,0 +1,88 @@
+
+import java.util.Stack;
+
+public class StacKfunction {
+
+	static Stack<Integer> st=new Stack<>();
+	static int max=Integer.MIN_VALUE;
+	static Stack<Integer> minStatck=new Stack<>();
+	static Stack<Integer> maxStack=new Stack<>();
+	
+	public static void push(int data)
+	{
+		if(st.empty())
+		{
+			st.push(data);
+			minStatck.push(data);
+			maxStack.push(data);
+		}
+		
+		else
+		{
+			if(data>maxStack.peek())
+			{
+				maxStack.push(data);
+				st.push(data);
+			}
+			else if(data<minStatck.peek())
+			{
+				minStatck.push(data);
+				st.push(data);
+			}
+		}
+	}
+	
+	public static void pop()
+	{
+		if(st.isEmpty())
+		{
+			return;
+		}
+		if(st.peek()==minStatck.peek())
+		{
+			st.pop();
+			minStatck.pop();
+		}
+		else if(st.peek()==maxStack.peek())
+		{
+			st.pop();
+			maxStack.pop();
+		}
+	}
+	public static int getMin()
+	{
+		if(st.isEmpty())
+		{
+			return 0;
+		}
+		else
+		{
+			return minStatck.peek();
+		}
+	}
+	public static int getMax()
+	{
+		if(st.isEmpty())
+		{
+		return 0;
+		}
+		return maxStack.peek();
+	}
+	public static void main(String[] args) {
+		push(10);
+		
+		push(8);
+		push(12);
+		push(6);
+		push(19);
+		push(5);
+		push(2);
+		push(1);
+	
+		System.out.println(getMax());
+		System.out.println(getMin());
+		st.pop();
+		System.out.println(getMax());
+		System.out.println(getMin());
+	}
+}
