@@ -1,0 +1,51 @@
+package com.aws.question;
+
+public class NextGreaterValue {
+
+	
+	public static void nextGreaterNum(int[] arr)
+	{
+		if(arr==null)
+		{
+			return;
+		}
+		int div;
+		boolean flag=false;
+		int minDif=Integer.MAX_VALUE;
+		int poss=-1;
+		for(int i=0;i<arr.length;i++)
+		{
+			for(int j=i+1;j<arr.length;j++)
+			{
+				if(arr[j]>arr[i])
+				{
+					div=arr[j]-arr[i];
+					if(div<minDif)
+					{
+						minDif=div;
+						poss=j;
+					}
+				}
+				
+				
+			}
+			if(minDif!=Integer.MAX_VALUE)
+			{
+				System.out.println(arr[i]+"     "+arr[poss]);
+				minDif=Integer.MAX_VALUE;
+			}
+			else
+			{
+				System.out.println(arr[i]+"      "+"-1");
+				minDif=Integer.MAX_VALUE;
+			}
+		}
+	}	
+	public static void main(String[] args) {
+		int[] arr= {5,6,10,9,4,3};
+		int[] arr1={11, 13, 21, 3};
+		int[] arr2= {1,3,4,2,0,10};
+		//nextGreaterNum(arr);
+		nextGreaterNum(arr2);
+	}
+}
