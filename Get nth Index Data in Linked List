@@ -1,0 +1,49 @@
+public class GetNthIndexData
+{
+	Node head;
+
+	public static Node getIndexData(Node head,int index)
+	{
+		if(head==null || index<0)
+		{
+			return null;
+		}
+		int lenCount=0;
+		while(head!=null)
+		{
+			
+			if(lenCount==index)
+			{
+				return head;
+			}
+			lenCount++;
+			head=head.next;
+		}
+		return null;
+	}
+	
+	public static Node nthIndexOf()
+	{
+		return null;
+	}
+	public static void main(String[] args) {
+		GetNthIndexData get=new GetNthIndexData();
+		get.head=new Node(4);
+		get.head.next=new Node(5);
+		get.head.next.next=new Node(6);
+		get.head.next.next.next=new Node(7);
+		get.head.next.next.next.next=new Node(1);
+		get.head.next.next.next.next.next=new Node(3);
+		
+		int index=0;
+		Node n=getIndexData(get.head,index);
+		if(n==null)
+		{
+			System.out.println("Data not found");
+		}
+		else
+		{
+			System.out.println("Data: "+n.data);
+		}
+		
+	}
