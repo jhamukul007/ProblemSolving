@@ -1,0 +1,212 @@
+// PreOrder,Inorder, level order without recursion
+package com.design.tree.binarytree;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+
+public class TraversalWithoutRecursion {
+static Node root;
+
+static List<Node> list=new LinkedList<>();
+//PreOrder
+	public static void reversalPreOrder()
+	{
+		if(root==null)
+		{
+			return;
+		}
+		Stack<Node> st=new Stack<Node>();
+		
+		
+		st.push(root);
+		while(!st.isEmpty())
+		{
+			Node n=st.pop();
+			list.add(n);
+			if(n.right!=null)
+			{
+				st.push(n.right);
+			}
+			if(n.left!=null)
+			{
+				st.push(n.left);
+			}
+		}
+		
+	}
+	
+	//Inorder A+B
+	public static List<Node> inOrderTrav()
+	{
+		if(root==null)
+		{
+			return null;
+		}
+		Stack<Node> st=new Stack<>();
+		List<Node> lt=new ArrayList<>();
+		Node current=root;
+		boolean done=true;
+		while(done)
+		{
+			if(current!=null)
+			{
+			st.add(current);
+			current=current.left;
+			if(current.left==null)
+			{
+				current=st.pop();
+				lt.add(current);
+				if(current.right!=null)
+				{
+					st.push(current.right);
+				}
+				
+			}
+			}
+		}
+		return lt;
+		
+	}
+	
+	public static void levelOrderInsertion(int data)
+	{
+		if(root==null)
+		{
+			root=new Node(data);
+		}
+		else
+		{
+			Queue<Node> que=new LinkedList<Node>();
+			que.offer(root);
+			while(!que.isEmpty())
+			{
+				root=que.poll();
+				if(root.left==null)
+				{
+					root.left=new Node(data);
+					 break;
+				}
+				else
+				{
+					que.offer(root.left);
+				}
+				if(root.right==null)
+				{
+					root.right=new Node(data);
+					break;
+				}
+				else
+				{
+					que.offer(root.right);
+				}
+			}
+		}
+	}
+	
+	public static void reverseATree()
+	{
+		if(root==null)
+		{
+			return;
+		}
+		Queue<Node> que=new LinkedList<>();
+		Stack<Node> st=new Stack<>();
+		Node n=null;
+		que.offer(root);
+		
+		while(!que.isEmpty())
+		{
+			n=que.poll();
+			st.push(n);
+			if(n.left!=null)
+			{
+				que.offer(n.left);
+			}
+			if(n.right!=null)
+			{
+				que.offer(n.right);
+			}
+		}
+		
+		while(!st.isEmpty())
+		{
+			System.out.print("  "+st.pop().data);
+		}
+	}
+	
+	public static void levelByLevelTraversal()
+	{
+		if(root==null)
+		{
+			return;
+		}
+		Queue<Node> que=new LinkedList<>();
+		que.offer(root);
+		que.offer(null);
+		Node n=null;
+		System.out.println();
+		while(!que.isEmpty())
+		{
+			n=que.poll();
+			if(n!=null)
+			{
+				System.out.print(" "+n.data);
+				if(n.left!=null)
+				{
+					que.offer(n.left);
+				}
+				if(n.right!=null)
+				{
+					que.offer(n.right);
+				}
+			}
+			else
+			{
+				if(!que.isEmpty())
+				{
+					System.out.println();
+					que.offer(null);
+				}
+			}
+
+		}
+	}
+	
+	public void mirrorImage(Node root)
+	{
+		
+	}
+	public static void main(String[] args) {
+		root=new Node(1);
+		root.left=new Node(2);
+		root.right=new Node(3);
+		root.left.left=new Node(4);
+		root.left.right=new Node(5);
+		root.left.left.left=new Node(6);
+		root.right.right=new Node(7);
+		reversalPreOrder();
+		for(Node n:list)
+		{
+			System.out.println(n.data);
+		}
+		System.out.println("--------------");
+		/*levelOrderInsertion(10);
+		reversalPreOrder();
+		for(Node n:list)
+		{
+			System.out.println(n.data);
+		}*/
+		/*List<Node> lt=inOrderTrav();
+		for(Node n:lt)
+		{
+			System.out.println(n.data);
+		}*/
+		reverseATree();
+		System.out.println("-------------------------------");
+		levelByLevelTraversal();
+		
+	}
+}
