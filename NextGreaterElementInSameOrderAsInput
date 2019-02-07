@@ -1,0 +1,62 @@
+package com.design.array;
+
+import java.util.Stack;
+
+/*
+ * Next greater element in same order as input
+ * Given an array, print the Next Greater Element (NGE) for every element. The Next greater Element for an element x is the first greater element on the right side of x in array. Elements for which no greater element exist, consider next greater element as -1. The next greater elements should be printed in same order as input array.
+
+Examples:
+
+Input : arr[] = [4, 5, 2, 25}
+Output : 5 25 25 -1
+
+Input : arr[] = [4, 5, 2, 25, 10}
+Output : 5 25 25 -1 -1
+ * 
+ * https://www.geeksforgeeks.org/next-greater-element-in-same-order-as-input/
+ * */
+public class NextGreaterElementInSameOrderAsInput {
+
+	public static int[] getNextGreater(int[] arr) {
+		if(arr==null) {
+			return null;
+		}
+		int[] returnArr=new int[arr.length];
+		Stack<Integer> st=new Stack<>();
+		for(int i=arr.length-1;i>=0;i--) {
+			
+			while(!st.isEmpty() && st.peek()<=arr[i]) {
+				st.pop();
+				
+			}
+			if(st.isEmpty()) {
+				returnArr[i]=-1;
+			}
+			if(!st.empty()) {
+				returnArr[i]=st.peek();
+				System.out.println(arr[i]+"  "+st);
+			}
+			st.push(arr[i]);
+		}
+		return returnArr;
+	}
+	public static void print(int[] arr) {
+		if(arr==null) {
+			return;
+		}
+		for(int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+	public static void main(String[] args) {
+		int arr[] = {4, 5, 2, 25};
+		
+		int[] arr1=getNextGreater(arr);
+		print(arr1);
+		int[] arr2= {26, 2, 2, 25, 10};
+		System.out.println();
+		int[] arr3=getNextGreater(arr2);
+		print(arr3);
+	}
+}
