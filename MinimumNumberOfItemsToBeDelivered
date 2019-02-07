@@ -1,0 +1,79 @@
+package com.design.array;
+
+public class MinimumNumberOfItemsToBeDelivered {
+/*
+ * Given N buckets, each containing A[i] items. Given K tours within which all of the items are needed to be delivered. It is allowed to take items from only one bucket in 1 tour. The task is to tell the minimum number of items needed to be delivered per tour so that all of the items can be delivered within K tours.
+Conditions : K >= N 
+Examples:
+
+Input : 
+N = 5
+A[] = { 1, 3, 5, 7, 9 }
+K = 10
+Output : 3
+By delivering 3 items at a time, 
+Number of tours required for bucket 1 = 1
+Number of tours required for bucket 2 = 1
+Number of tours required for bucket 3 = 2
+Number of tours required for bucket 4 = 3
+Number of tours required for bucket 5 = 3
+Total number of tours = 10
+
+Input :
+N = 10
+A = 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+k = 50
+Output : 9
+ * 
+ * 
+ * */
+	
+public static int getMinWeight(int[] arr,int n,int k) {
+	if(arr==null) {
+		return -1;
+	}
+	int main_item=0;
+	int prev_weight=0;
+	int count=0;
+	for(int i=0;i<arr.length;i++) {
+		count=0;
+		for(int j=0;j<arr.length;j++) {
+			 if(count>k) {
+				 System.out.println("Coming in ");
+				 break;
+			 }
+			 else {
+			 int times=arr[j]/arr[i];
+			 times=(arr[j]%arr[i]!=0?times+1:times);
+			 count+=times;
+			 }
+		}
+		prev_weight=count;
+		if(count<=k) {
+			main_item=arr[i];
+			break;
+			
+		}
+		
+	}
+	return main_item;
+}
+public static void main(String[] args) {
+	int[] arr={ 1, 3, 5, 7, 9 };
+	int N=5;
+	int K=10;
+	System.out.println(getMinWeight(arr, N, K));
+	
+	int[] arr1= {1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
+	int n=10;
+	int k=50;
+	int data=getMinWeight(arr1, n, k);
+	if(data==0) {
+		System.out.println("NOT POSSIBLE ");
+	}
+	else {
+		System.out.println("Minimum number of items to be delivered each time= "+data);
+	}
+	
+}
+}
