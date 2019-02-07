@@ -1,0 +1,54 @@
+package com.design.array;
+/*Find subarray with given sum | Set 1 (Nonnegative Numbers)
+ * 
+ * Input: arr[] = {1, 4, 20, 3, 10, 5}, sum = 33
+Ouptut: Sum found between indexes 2 and 4
+
+Input: arr[] = {1, 4, 0, 0, 3, 10, 5}, sum = 7
+Ouptut: Sum found between indexes 1 and 4
+
+Input: arr[] = {1, 4}, sum = 0
+Output: No subarray found	
+
+
+ *
+ * https://www.geeksforgeeks.org/find-subarray-with-given-sum/
+ * */
+public class FindSubarrayWithGivenSum {
+
+	public static int findSum(int[] arr,int sum) {
+		if(arr==null) {
+			return 0;
+		}
+		int st=0,end,cur_sum=arr[0];
+			for(int i=1;i<arr.length;i++) {
+				while(cur_sum>sum && st<i-1) {
+					cur_sum=cur_sum-arr[st];
+					st++;
+				}
+				if(cur_sum==sum) {
+					end=i-1;
+					System.out.println("Given Sum found between "+st +" to "+end);
+					return 1;
+				}
+				if(i<arr.length) {
+				cur_sum=cur_sum+arr[i];
+				}
+			}
+			
+			System.out.println("Sum Not Found");
+			return 0;
+	}
+	public static void main(String[] args) {
+		
+		int arr[] = {1, 4, 20, 3, 10, 5}; int sum = 33;
+		findSum(arr, sum);
+		int arr1[] = {1, 4, 0, 0, 3, 10, 5}; int sum1 = 7;
+		findSum(arr1, sum1);
+		int arr2[]={1, 4};int sum2 = 0;
+		findSum(arr2, sum2);
+		  int arr3[] = {15, 1, 6, 8, 9, 5, 10, 23}; 
+		  findSum(arr3,23);
+	}
+
+}
