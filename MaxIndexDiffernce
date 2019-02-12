@@ -1,0 +1,60 @@
+package com.design.array.google;
+/*
+ * Given an array arr[], find the maximum j – i such that arr[j] > arr[i]
+
+Given an array arr[], find the maximum j – i such that arr[j] > arr[i].
+  Input: {34, 8, 10, 3, 2, 80, 30, 33, 1}
+  Output: 6  (j = 7, i = 1)
+
+  Input: {9, 2, 3, 4, 5, 6, 7, 8, 18, 0}
+  Output: 8 ( j = 8, i = 0)
+
+  Input:  {1, 2, 3, 4, 5, 6}
+  Output: 5  (j = 5, i = 0)
+
+  Input:  {6, 5, 4, 3, 2, 1}
+  Output: -1 
+ * */
+public class FindMaxOf {
+	public static int getMaxIndexDiff(int[] arr) {
+	if(arr==null) {
+		return -1;
+	}
+	int count=0;
+	for(int i=0;i<arr.length-1;i++) {
+		if(arr[i+1]<arr[i]) {
+			count++;
+		}
+	}
+	if(count==arr.length-1) {
+		return -1;
+	}
+	else {
+	int max=0;
+//	int dif=0;
+	for(int i=0;i<arr.length;i++) {
+		for(int j=arr.length-1;j>i;j--) {
+			if(arr[j]>arr[i]) {
+				int dif=j-i;
+				if(dif>max) {
+					max=dif;
+					
+				}
+			}
+		}
+	}
+	return max;
+	}
+	}
+	public static void main(String[] args) {
+		int[] arr= {34, 8, 10, 3, 2, 80, 30, 33, 1};
+		int[] arr1={9, 2, 3, 4, 5, 6, 7, 8, 18, 0};
+		int[] arr2={1, 2, 3, 4, 5, 6};
+		int[] arr3={6, 5, 4, 3, 2, 1};
+		System.out.println(getMaxIndexDiff(arr));
+		System.out.println(getMaxIndexDiff(arr1));
+		System.out.println(getMaxIndexDiff(arr2));
+		System.out.println(getMaxIndexDiff(arr3));
+		
+	}
+}
