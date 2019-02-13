@@ -1,0 +1,31 @@
+public class FindMaximumPalindromValue {
+public static int getPalidrom(int[] arr) {
+	if(arr==null) {
+		return -1;
+	}
+	int maxPalin=-1;
+	for(int i=0;i<arr.length;i++) {
+		if(isPalindrom(arr[i])) {
+			if(arr[i]>maxPalin) {
+				maxPalin=arr[i];
+			}
+		}
+	}
+	return maxPalin;
+}
+private static boolean isPalindrom(int num) {
+	
+	int num1=num;
+	int reverse=0;
+	while(num!=0) {
+		int mod=num%10;
+		reverse=reverse*10+mod;
+		num/=10;
+	}
+	return num1==reverse;
+}
+public static void main(String[] args) {
+	int[] arr= {151,1001,151,121,1991,65,68,1992,5125};
+	System.out.println("Maximum Palindrom Num in the array is: "+getPalidrom(arr));
+}
+}
