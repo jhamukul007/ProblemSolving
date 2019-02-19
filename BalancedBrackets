@@ -1,0 +1,52 @@
+package com.demo.stack;
+
+import java.util.Stack;
+
+public class BrachBalancer {
+
+	static String isBalanced(String s) {
+        if(s==null){
+            return "NO";
+        }
+        Stack<Character> st=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='}' ){
+                if(!st.isEmpty() && st.peek()=='{'){
+                st.pop();
+                }
+                else{
+                    return "NO";
+                }
+            }
+            else if(s.charAt(i)==')'){
+             
+             if(!st.isEmpty() && st.peek()=='('){
+                st.pop();
+                }
+                else{
+                    return "NO";
+                }
+            }
+            else if(s.charAt(i)==']'){
+             
+             if(!st.isEmpty() && st.peek()=='['){
+                st.pop();
+                }
+                else{
+                    return "NO";
+                }
+            }
+            else{
+                st.push(s.charAt(i));
+                System.out.println(st);
+            }
+        }
+      
+      return (st.isEmpty())?"YES":"NO";
+
+    }
+public static void main(String[] args) {
+	String s="{[()]}";
+	System.out.println(isBalanced(s));
+}
+}
