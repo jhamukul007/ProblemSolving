@@ -1,0 +1,53 @@
+package com.mukul.demo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+public class CreateSmallestNumber {
+
+	public static String smallestNumber(List<String> numList) {
+		if(numList==null) {
+			return null;
+		}
+		Collections.sort(numList,new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+					String xy=o1+o2;
+					String yx=o2+o1;
+				return xy.compareTo(yx)>0?1:-1;	
+				}
+		});
+		
+		Iterator<String> itr=numList.iterator();
+		String s="";
+		while(itr.hasNext()) {
+			s=s+itr.next();
+		}
+		return s;
+	}
+	public static void main(String[] args) {
+		List<String> list=new ArrayList<>();
+		list.add("54");
+		list.add("546");
+		list.add("548");
+		list.add("60");
+		
+		String s=smallestNumber(list);
+		System.out.println("Smallest Number of the given Array is: "+s);
+		
+		List<String> list1=new ArrayList<>();
+		list1.add("34");
+		list1.add("1");
+		list1.add("3");
+		list1.add("98");
+		list1.add("9");
+		list1.add("76");
+		list1.add("45");
+		list1.add("4");
+		System.out.println(smallestNumber(list1));
+	}
+}
