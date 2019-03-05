@@ -1,0 +1,66 @@
+package com.design.linklist;
+
+public class SwapTwoNode {
+
+	static Node head;
+	public static Node swapData(Node head,int from,int to) {
+		if(head==null) {
+			return null;
+		}
+		
+		Node fPre=null;
+		Node cur=head;
+		Node toPre=null;
+		int count=1;
+		Node fromNode=null;
+		Node toNode=null;
+		while(count<=from) {
+			if(count==from) {
+				fromNode=cur;
+				break;
+			}
+			fPre=cur;
+			cur=cur.next;
+			count++;
+		}
+		count=1;
+		while(count<=to) {
+			if(count==to) {
+				toNode=cur;
+				break;
+			}
+			toPre=cur;
+			cur=cur.next;
+			count++;
+		}
+		if(fPre==null) {
+			head=toNode;
+		}
+		else {
+			fPre.next=toNode;
+		}
+		if(toPre==null) {
+			head=fromNode;
+		}
+		else {
+			toPre.next=fromNode;
+		}
+		
+		Node temp=toNode.next;
+		toNode.next=fromNode.next;
+		fromNode.next=temp;
+		return head;
+	}
+	public static void main(String[] args) {
+		head=new Node(5);
+		head.next=new Node(6);
+		head.next.next=new Node(7);
+		head.next.next.next=new Node(9);
+		head.next.next.next.next=new Node(10);
+		Node n=swapData(head, 2, 4);
+		while(n!=null) {
+			System.out.print(n.data+" ->");
+			n=n.next;
+		}
+	}
+}
