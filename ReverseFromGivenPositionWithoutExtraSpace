@@ -1,0 +1,65 @@
+package com.demo.linkedlist;
+
+import java.util.Stack;
+
+public class ReverseLinkedListFromAPosition {
+static Node head;
+	
+	static void print(Node head) {
+		if(head==null) {
+			return;
+		}
+		while(head!=null) {
+				System.out.print(head.data+" ->");
+				head=head.next;
+
+		}
+	}
+	//With Extra Space it is using 0(from)+0(n-from)=0(n)
+	public static Node reverseFromGivenPostion(Node head,int from) {
+		if(head==null || from<=0) {
+			return null;
+		}
+		Node fromNode=null;
+		Node cur=head;
+		Node preNodeJoin=null;
+		int count=1;
+		while(count<=from) {
+			if(count==from) {
+				fromNode=cur;
+				break;
+			}
+			count++;
+			preNodeJoin=cur;
+			cur=cur.next;
+		}
+		
+		Node pre=null;
+		Node nxt=null;
+		while(fromNode!=null) {
+			nxt=fromNode.next;
+			fromNode.next=pre;
+			pre=fromNode;
+			fromNode=nxt;
+		}
+		preNodeJoin.next=pre;
+		return head;
+	}
+	
+	
+	public static void main(String[] args) {
+		head=new Node(2);
+		head.next=new Node(3);
+		head.next.next=new Node(4);
+		head.next.next.next=new Node(5);
+		head.next.next.next.next=new Node(6);
+		head.next.next.next.next.next=new Node(7);
+		print(head);
+		System.out.println("=================");
+	
+		Node n=reverseFromGivenPostion(head,3);
+		print(n);
+		
+		
+	}
+}
