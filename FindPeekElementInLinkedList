@@ -1,0 +1,56 @@
+package com.design.test;
+/*
+ * Find a peak element in Linked List
+Given a Linked list of integers. The task is to find a peak element in it. An element in the list is said to be peak if it is NOT smaller than its neighbors. For corner elements, we need to consider only one neighbor. For example:
+
+If the input list is {5 -> 10 -> 20 -> 15}, 20 is the only peak element.
+For input list {10 -> 20 -> 15 -> 2 -> 23 -> 90 -> 67}, there are two peak elements: 20 and 90. Note that it is needed to return any one peak element.
+Following corner cases give a better idea about the problem:
+
+If the input list is sorted in strictly increasing order, the last element is always a peak element. For example, 50 is peak element in {10 -> 20 -> 30 -> 40 -> 50}.
+If the input list is sorted in strictly decreasing order, the first element is always a peak element. 100 is the peak element in {100 -> 80 -> 60 -> 50 -> 20}.
+If all elements of the input list are same, every element is a peak element.
+
+ * 
+ * 
+ * 
+ * */
+public class FindPeekElementInLinkedList {
+static Node head;
+
+
+static int GetPeekElement(Node head) {
+	if(head==null) {
+		return -1;
+	}
+	Node pre=head;
+	//Node nextPtr=head.next;
+	Node cur=head.next;
+	int peek=0;
+	while(cur!=null && cur.next!=null) {
+		
+		if(pre.data<cur.data && cur.data>cur.next.data) {
+			peek=cur.data;
+		}
+		pre=cur;
+		cur=cur.next;
+	}
+	peek=((pre.data<cur.data)&&peek==0)?cur.data:peek;
+	peek=((head.data>head.next.data)&&peek==0)?head.data:peek;
+	peek=((head.data==head.next.data)&& peek==0)?head.data:peek;
+	return peek;
+}
+	public static void main(String[] args) {
+		head=new Node(12);
+		head.next=new Node(12);
+		head.next.next=new Node(12);
+		head.next.next.next=new Node(12);
+		head.next.next.next.next=new Node(12);
+		//head.next.next.next.next.next=new Node(90);
+		//head.next.next.next.next.next.next=new Node(67);
+		System.out.println("Peek Data: "+GetPeekElement(head));
+		
+		
+		System.gc();
+	}
+}
