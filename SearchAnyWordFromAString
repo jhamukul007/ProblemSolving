@@ -1,0 +1,35 @@
+package com.design.test;
+
+public class StringSearch {
+public static int countNumberOfOccurance(String s,String searchFor) {
+	if(s==null ||searchFor==null) {
+		return 0;
+	}
+	int count=0;
+	for(int i=0;i<s.length();i++) {
+		if(s.charAt(i)==searchFor.charAt(0)){
+			int lenOfWord=i+searchFor.length();
+			if(lenOfWord<=s.length()) {
+			String temp=s.substring(i,lenOfWord);
+			if(isSame(searchFor,temp)) {
+				count++;
+			}
+			}
+		}
+	}
+	return count;
+	
+}
+
+private static boolean isSame(String actual,String temp) {
+	if(actual==null || temp==null) {
+		return false;
+	}
+	return actual.equals(temp);
+}
+public static void main(String[] args) {
+	String s="<html><p> Hi, My name is MukulChandra Jha</p><br> <p4>I have working at Avakeshaa Tech</p4><p5>Hi PSRASMukulKHSS jha </p5></html>DHJDHMukulBHDDH";
+	String searchFor="Mukul";
+	System.out.println("Total Number of "+searchFor+" inside the String of data: "+countNumberOfOccurance(s, searchFor));
+}
+}
