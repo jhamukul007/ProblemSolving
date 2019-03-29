@@ -1,0 +1,25 @@
+public class PrintRootToLeafNode {
+static Node root;
+
+static Stack<Integer> stack=new Stack<>();
+static public void rootToLeaf(Node root) {
+	if(root==null) {
+		return;
+	}
+stack.push(root.data);
+	rootToLeaf(root.left);
+	if(root.left==null && root.right==null) {
+		System.out.println(stack);
+	}
+	rootToLeaf(root.right);
+	stack.pop();
+}
+public static void main(String[] args) {
+	root=new Node(1);
+	root.left=new Node(2);
+	root.right=new Node(3);
+	root.left.left=new Node(4);
+	root.left.right=new Node(5);
+	rootToLeaf(root);
+}
+}
