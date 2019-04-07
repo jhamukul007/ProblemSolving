@@ -1,0 +1,27 @@
+package muk.tree.demo;
+/*Find the node with maximum value in a Binary Search Tree*/
+
+public class MaximumNodeValueInBST {
+static Node root;  
+static int maxNode(Node root) {
+	if(root==null) {
+		throw new IllegalArgumentException("Null Root");
+	}
+	if(root.right==null) {
+		return root.data;
+	}
+	else {
+		int data=maxNode(root.right);
+		return data;
+	}
+	
+}
+public static void main(String[] args) {
+	root=new Node(6);
+	root.left=new Node(4);
+	root.left.right=new Node(5);
+	root.right=new Node(8);
+	root.right.right=new Node(40);
+	System.out.println("Maximum value in the Tree: "+maxNode(root));
+}
+}
