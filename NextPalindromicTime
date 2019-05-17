@@ -1,0 +1,36 @@
+/*Find the time which is palindromic and comes after the given time*/
+/*Given a string str which stores the time in the 24 hours format as HH:MM such that 0 ≤ HH ≤ 23 and 0 ≤ MM ≤ 59.
+The task is to find the next closest time which is a palindrome when read as a string. If no such string exists then print -1.*/
+
+//https://www.geeksforgeeks.org/find-the-time-which-is-palindromic-and-comes-after-the-given-time/
+
+
+class NextPali {
+    public static String getnextPaliTime(String time){
+        if(time==null){
+            return null;
+        }
+        String[] s=time.split(":");
+        int hh=Integer.parseInt(s[0]);
+        int mm=Integer.parseInt(s[1]);
+        if(hh==23){
+            return "-1";
+        }
+        for(int i=hh+1;i<=23;i++){
+            StringBuilder sb=new StringBuilder();
+            String s1=(i<10)?"0"+i:""+i;
+            sb.append(s1);
+            sb.reverse();
+            int re=Integer.parseInt(sb.toString());
+            if(re>hh && re<=59){
+                return s1+":"+re;
+            }
+        }
+        return "-1";
+    }
+	public static void main (String[] args) {
+		String time="01:10";
+		System.out.println(getnextPaliTime(time));
+	}
+}
+
