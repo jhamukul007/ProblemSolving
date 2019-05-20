@@ -1,0 +1,75 @@
+package com.muk;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/*
+ * https://www.geeksforgeeks.org/rearrange-odd-and-even-values-in-alternate-fashion-in-ascending-order/
+ *If the smallest value is Even then we have to print Even-Odd pattern.
+ *If the smallest value is Odd then we have to print Odd-Even pattern.
+ */
+public class RearrangeEvenOddInAssandingOrder {
+	public static int[] reArrange(int[] arr) {
+		if(arr==null) {
+			throw new IllegalArgumentException();
+		}
+		Arrays.sort(arr);
+		List<Integer> even=new ArrayList<>();
+		List<Integer> odd=new ArrayList<>();
+		
+		int curStatus=evenOrOdd(arr[0]);
+		int len=arr.length;
+		for(int i=0;i<len;i++) {
+			int data=arr[i];
+			if(evenOrOdd(data)==0) {
+				even.add(data);
+			}
+			else {
+				odd.add(data);
+			}
+		}
+		System.out.println("Even:"+even);
+		System.out.println("Odd: "+odd);
+		if(even.size()!=odd.size()) {
+			System.out.println("Not Possible");
+			return null;
+		}
+		int index=0;
+		int count=0;
+		for(int i=0;i<len;i++) {
+			if(count==2) {
+				count=0;
+				index++;
+			}
+			
+			if(curStatus==0 && count<=2) {
+				arr[i]=even.get(index);
+				curStatus=1;
+				count++;
+			}
+			else if(curStatus==1 && count<=2) {
+				arr[i]=odd.get(index);
+				curStatus=0;
+				count++;
+			}
+			
+		}
+		return arr;
+	}
+	private static int evenOrOdd(int data) {
+		//Even: 0 and Odd 1
+		return (data%2==0)?0:1;
+	}
+	public static void main(String[] args) {
+		int[] arr= {1, 3, 2, 5, 4, 7, 10};
+		int[] arr2= {9, 8, 13, 2, 19};
+		int[] arr3= {2,4,1,9,0,3};
+		int[] arr1=reArrange(arr3);
+		if(arr1!=null) {
+		for(int i=0;i<arr1.length;i++) {
+			System.out.println(arr1[i]);
+		}
+		}
+	}
+}
