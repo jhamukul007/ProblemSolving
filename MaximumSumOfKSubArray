@@ -1,0 +1,27 @@
+package muk.imp;
+
+public class MaximumSumOfKSubArray {
+
+	public static int maximumSum(int[] arr,int k) {
+		if(arr==null) {
+			return 0;
+		}
+		int curSum=0;
+		for(int i=0;i<k;i++) {
+			curSum+=arr[i];
+		}
+		int max_Sum=curSum;
+		for(int i=k;i<arr.length;i++) {
+			curSum+=arr[i]-arr[i-k];
+			if(curSum>max_Sum) {
+				max_Sum=curSum;
+			}
+		}
+		return max_Sum;
+	}
+	public static void main(String[] args) {
+		int[] arr= {1,3,3,13,4,5,2,8,9};
+		int k=4;
+		System.out.println("Maximum Sum of K size sub Array: "+maximumSum(arr, k));
+	}
+}
