@@ -1,0 +1,105 @@
+//Worst Case Complexity: O(n*n)
+//Average: O(n)
+
+
+package muk.tree.demo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+public class TopOrderView {
+static Node root;
+static Map<Integer,List<Integer>> map=new HashMap<>();
+static Queue<Dist> queue=new LinkedList<>();
+public static void topOrderView(Node root) {
+	if(root==null) {
+		return;
+	}
+
+
+int minV=Integer.MAX_VALUE;
+int maxV=Integer.MIN_VALUE;
+Dist ds=new Dist(root,0);
+queue.add(ds);
+List<Integer> list=new ArrayList<>();
+list.add(root.data);
+map.put(0, list);
+//O(n)
+while(!queue.isEmpty()) {
+	Dist d=queue.poll();
+	Node n=d.getNode();
+	int hd=d.getDis();
+	if(n.left!=null) {
+		topOrderUtil(n.left, hd-1);
+		if(hd-1<minV) {
+			minV=hd-1;
+		}
+	}
+	if(n.right!=null) {
+		topOrderUtil(n.right, hd+1);
+		if(hd+1>maxV) {
+			maxV=hd+1;
+		}
+	}
+}
+System.out.println("Top View of Binary Tree: ");
+for(int i=minV;i<=maxV;i++) {
+	List<Integer> mapD=map.get(i);
+	System.out.print(mapD.get(0)+" ");
+}
+
+}
+//O(n) Max
+private static void topOrderUtil(Node node,int hd) {
+	Dist ds=new Dist(node, hd);
+	queue.add(ds);
+	List<Integer> mapData=map.get(hd);
+	if(mapData!=null) {
+		mapData.add(node.data);
+	}
+	else{
+		List<Integer> l=new ArrayList<Integer>();
+		l.add(node.data);
+		map.put(hd, l);
+	}
+	
+}
+public static void main(String[] args) {
+	root=new Node(1);
+	root.left=new Node(2);
+	root.right=new Node(3);
+	root.left.left=new Node(7);
+	root.left.right=new Node(6);
+	root.left.left.left=new Node(8);
+	root.left.left.right=new Node(9);
+	root.left.left.right.right=new Node(10);
+	
+	root.right.left=new Node(5);
+	root.right.right=new Node(4);
+	root.right.right.right=new Node(11);
+	root.right.right.left=new Node(12);
+
+
+	topOrderView(root);
+	System.out.println(map);
+	
+}
+}
+class Dist{
+	private Node node;
+	private int hid;
+	public Dist(Node node,int hid) {
+		this.node=node;
+		this.hid=hid;
+	}
+	public int getDis() {
+		return hid; 
+	}
+	public Node getNode() {
+		return node;
+	}
+}
