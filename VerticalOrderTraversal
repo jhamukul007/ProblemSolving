@@ -1,0 +1,100 @@
+package muk.tree.demo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+public class VerticalOrderTraversal {
+
+	Node root;
+	public static void verticalOrderTraversal(Node root) {
+		if(root==null) {
+			throw new IllegalArgumentException();
+		}
+		
+		Queue<Dis> queue=new LinkedList<>();
+		Dis d=new Dis(0, root);
+		queue.add(d);
+		Map<Integer,List<Integer>> map=new HashMap<>();
+		List<Integer> list=new ArrayList<>();
+		list.add(root.data);
+		map.put(0,list);
+		
+		
+		//queue.add(root);.
+		while(!queue.isEmpty()) {
+			Dis d1=queue.poll();
+			System.out.println(d1.toString());
+			Node n=d1.getRoot();
+			if(n.left!=null) {
+				int hd=d1.getHd();
+				Dis di=new Dis(hd-1,n.left);
+				
+				queue.add(di);
+				List<Integer> list1=map.get(hd-1); 
+				if(list1!=null) {
+					list1.add(n.left.data);
+					map.put(hd-1,list1);
+				}
+				else {
+					List<Integer> ls=new ArrayList<>();
+					ls.add(n.left.data);
+					map.put(hd-1,ls);
+				}
+				
+			}
+			if(n.right!=null) {
+				int hd=d1.getHd();
+				Dis di=new Dis(hd+1,n.right);
+				queue.add(di);
+				List<Integer> list1=map.get(hd+1); 
+				if(list1!=null) {
+					list1.add(n.right.data);
+					map.put(hd+1,list1);
+				}
+				else {
+					List<Integer> ls=new ArrayList<>();
+					ls.add(n.right.data);
+					map.put(hd+1,ls);
+				}
+				
+			
+		}
+	}
+		System.out.println("Vertical Order Traversal: "+map);
+	
+}
+	public static void main(String[] args) {
+		VerticalOrderTraversal ver=new VerticalOrderTraversal();
+		ver.root=new Node(1);
+		ver.root.left=new Node(2);
+		ver.root.right=new Node(3);
+		ver.root.left.left=new Node(4);
+		ver.root.left.left.right=new Node(9);
+		ver.root.left.right=new Node(5);
+		ver.root.right.left=new Node(6);
+		ver.root.right.right=new Node(7);
+		verticalOrderTraversal(ver.root);
+	}
+}
+class Dis{
+	private Node node;
+	private int hd;
+	public Dis(int hd,Node node) {
+		this.hd=hd;
+		this.node=node;
+	}
+	public Node getRoot() {
+		return node;
+	}
+	public int getHd() {
+		return hd;
+	}
+	@Override
+	public String toString() {
+		return "["+hd+", "+node+"]";
+	}
+}
