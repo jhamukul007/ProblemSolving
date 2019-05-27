@@ -1,0 +1,51 @@
+package muk.amazon.interview;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import muk.tree.demo.Node;
+
+/*
+ * *https://www.geeksforgeeks.org/check-for-children-sum-property-in-a-binary-tree/
+ * Check for Children Sum Property in a Binary Tree
+Given a binary tree, write a function that returns true if the tree satisfies below property.
+For every node, data value must be equal to sum of data values in left and right children. Consider data value as 0 for NULL children. Below tree is an example
+ */
+public class ChildSumProperty {
+Node root;
+public static boolean isFollowChildProperty(Node root) {
+	if(root==null) {
+		return false;
+	}
+	Queue<Node> queue=new LinkedList<>();
+	queue.add(root);
+	int childSum=0;
+	while(!queue.isEmpty()) {
+		childSum=0;
+		Node n=queue.poll();
+		if(n.left!=null) {
+			childSum+=n.left.data;
+			queue.offer(n.left);
+		}
+		if(n.right!=null) {
+			childSum+=n.right.data;
+			queue.offer(n.right);
+		}
+		childSum=(childSum==0)?n.data:childSum;
+		if(n.data!=childSum) {
+			return false;
+		}
+	}
+	return true;
+}
+public static void main(String[] args) {
+	ChildSumProperty childProp=new ChildSumProperty();
+	childProp.root=new Node(10);
+	childProp.root.left=new Node(8);
+	childProp.root.right=new Node(2);
+	childProp.root.left.left=new Node(3);
+	childProp.root.left.right=new Node(5);
+	childProp.root.right.right=new Node(2);
+	System.out.println("Does tree following the Rule: "+isFollowChildProperty(childProp.root));
+}
+}
