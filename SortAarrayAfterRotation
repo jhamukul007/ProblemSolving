@@ -1,0 +1,49 @@
+package muk.myntra.ps;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class SortAarrayAfterRotation {
+
+	public static int[] sortedArray(int[] arr){
+		if(arr==null){
+			return null;
+		}
+		int len=arr.length;
+		Queue<Integer> queue=new LinkedList<>();
+		int noOfTimes=1;
+			for(int i=0;i<len-1;i++){
+				if(arr[i+1]>=arr[i]){
+					queue.offer(arr[i]);
+					noOfTimes++;
+				}
+				else{
+					queue.offer(arr[i]);
+				break;
+				}
+			}
+			for(int i=0;i<arr.length;i++){
+				if(i>=len-noOfTimes){
+					arr[i]=queue.poll();
+				}
+				else{
+					arr[i]=arr[i+noOfTimes];
+				}
+			}
+		
+		return arr;
+	}
+	static void printArray(int[] arr){
+		if(arr==null){
+			return;
+		}
+		for(int i:arr){
+			System.out.print(i+"  ");
+		}
+	}
+	public static void main(String[] args) {
+		int[] arr={6,6,7,8,1,2,3,4,5};
+		int[] arr1={4,6,7,8,1,2,3};
+		printArray(sortedArray(arr1));
+	}
+}
