@@ -1,0 +1,68 @@
+package muk.amazon.ps;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import muk.generic.node.TreeNode;
+
+public class PrintNotHaveSibling {
+/*
+ * https://www.geeksforgeeks.org/print-nodes-dont-sibling-binary-tree/
+ * */
+	
+	static TreeNode root;
+	//Space: O(1) and Time Comp: O(n)
+	public static void recursiveSib(TreeNode root){
+		if(root==null){
+			return;
+		}
+		if(root.left!=null && root.right!=null){
+			recursiveSib(root.left);
+			recursiveSib(root.right);
+		}
+		if(root.left==null && root.right!=null){
+			System.out.println(root.right.data);
+			recursiveSib(root.right);
+		}
+		if(root.left!=null && root.right==null){
+			System.out.println(root.left.data);
+			recursiveSib(root.left);
+		}
+	}
+	// Using Level Order Traversal
+	// Time: O(n) and Space: O(n)
+	public static void sib(TreeNode root){
+		if(root==null){
+			return;
+		}
+		Queue<TreeNode> queue=new LinkedList<>();
+		queue.offer(root);
+		while(!queue.isEmpty()){
+			TreeNode n=queue.poll();
+			if(n.left==null && n.right!=null){
+				System.out.println(n.right.data);
+				queue.offer(n.right);
+			}
+			if(n.left!=null && n.right==null){
+				System.out.println(n.left.data);
+				queue.offer(n.left);
+			}
+			if(n.left!=null && n.right!=null){
+				queue.offer(n.left);
+				queue.offer(n.right);
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		root=new TreeNode(1);
+		root.left=new TreeNode(5);
+		root.right=new TreeNode(7);
+		root.left.left=new TreeNode(8);
+		root.left.left.left=new TreeNode(15);
+		root.left.right=new TreeNode(7);
+		root.right.right=new TreeNode(10);
+		recursiveSib(root);
+		sib(root);
+	}
+}
