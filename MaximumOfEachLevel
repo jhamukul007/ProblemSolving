@@ -1,0 +1,65 @@
+package muk.amazon.ps;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import muk.generic.node.TreeNode;
+
+// Time: O(n)
+//Space: O(n)+O(hight_Of_Tree)
+public class MaximumOfEachLevel {
+	static TreeNode root;
+	
+	public static List<Integer> getMaximumAtEachNode(TreeNode root){
+		if(root==null){
+			return null;
+		}
+		List<Integer> maximumPerLevel=new ArrayList<>();
+		Queue<TreeNode> queue=new LinkedList<>();
+		queue.offer(root);
+		queue.offer(null);
+		int max=Integer.MIN_VALUE;
+		
+		while(!queue.isEmpty()){
+			TreeNode n=queue.poll();
+			
+			if(n!=null){
+				max=n.data>max?n.data:max;
+				if(n.left!=null){
+					queue.offer(n.left);
+				}
+				if(n.right!=null){
+					queue.offer(n.right);
+				}
+			}
+			if(n==null){
+				maximumPerLevel.add(max);
+				max=0;
+				if(!queue.isEmpty()){
+					queue.offer(null);
+				}
+			}
+		}
+		return maximumPerLevel;
+	}
+	public static void main(String[] args) {
+		root=new TreeNode(1);
+		root.left=new TreeNode(2);
+		root.right=new TreeNode(1);
+		root.left.left=new TreeNode(7);
+		root.left.right=new TreeNode(2);
+		root.right.left=new TreeNode(8);
+		root.right.right=new TreeNode(3);
+		//root.left.left=new TreeNode(7);
+		root.left.left.left=new TreeNode(7);
+		root.right.right.right=new TreeNode(9);
+		List<Integer> list;
+		if((list=getMaximumAtEachNode(root))!=null && !list.isEmpty()){
+			for(Integer perNodeMax: list)
+			System.out.println("Maximum per level: "+perNodeMax);
+		}
+		
+	}
+}
