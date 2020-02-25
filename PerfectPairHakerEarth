@@ -1,0 +1,53 @@
+//First Approch with O(n2) complexcity
+https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/practice-problems/algorithm/perfect-pair-df920e90/description/
+
+
+import java.util.*;
+import java.lang.*;
+
+class TestClass {
+    
+    public static int getAllPair(int[] arr,int len){
+        if(arr==null){
+            return 0;
+        }
+        int count=0;
+        for(int i=0;i<len-1;i++){
+            for(int j=i+1;j<len;j++){
+                double sum=(double)arr[i]+arr[j];
+                
+                if(perfectSqtOrCube(sum) ){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    private static boolean perfectSqtOrCube(double number){
+        double sq=Math.sqrt(number);
+        
+        return Math.floor(sq)-sq==0?true:checkQube(number);
+    }
+    private static boolean checkQube(double number){
+        double tr=Math.cbrt(number);
+        return Math.floor(tr)-tr==0?true:false;
+    }
+    //2nd Approch and better one
+    
+    
+    
+    public static void main(String args[] ) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int noOfTestCase=sc.nextInt();
+        for(int i=1;i<=noOfTestCase;i++){
+            int len=sc.nextInt();
+            int[] arr=new int[len];
+            for(int j=0;j<len;j++){
+                arr[j]=sc.nextInt();
+            }
+            System.out.println(getAllPair(arr,len));
+        }
+    }
+}
+
